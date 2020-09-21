@@ -3,7 +3,7 @@
 >>>>>>>>><<<<<<<<<<
 
 student(johnny,40137434).
-student(kelvin,loser_id).
+student(kelvin,40130189).
 student(steven,40133698).
 student(ellane,40129985).
 
