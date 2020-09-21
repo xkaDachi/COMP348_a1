@@ -1,0 +1,8 @@
+lucas(0,2).
+lucas(1,1).
+lucas(N,Output):- N>1,
+           N1 is N-1,
+           N2 is N-2,
+           lucas(N1,Output1),
+           lucas(N2,Output2),
+           Output is Output1+Output2.

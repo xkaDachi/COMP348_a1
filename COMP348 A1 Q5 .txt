@@ -1,0 +1,82 @@
+>>>>>>>>><<<<<<<<<<
+>>>>>Database:<<<<<
+>>>>>>>>><<<<<<<<<<
+
+student(johnny,40137434).
+student(kelvin,loser_id).
+student(steven,40133698).
+student(ellane,40129985).
+
+course(advance_program_design_with_c_plus_plus,comp345).
+course(data_structures_and_algorithms,comp352).
+course(principles_of_programming_languages,comp348).
+course(critical_thinking,phil210).
+course(information_information_literacy_skills,inst250).
+course(microeconomics,econ201).
+course(principles_of_electrical_engineering,elec275).
+course(advance_applied_calculus,engr233).
+course(probability_and_statistics,comp233).
+course(introduction_to_astronomy, phys284).
+course(thermodynamics,engr251). 
+course(X,[X|_]) :- !.
+course(X,[_|T]) :- course(X,T).
+
+isTaking(johnny,comp345).
+isTaking(johnny,comp348).
+isTaking(johnny,comp352).
+isTaking(johnny,phil210).
+isTaking(johnny,inst250).
+
+isTaking(kelvin,comp348).
+isTaking(kelvin,comp352).
+isTaking(kelvin,elec275).
+isTaking(kelvin,engr251).
+
+isTaking(steven,comp348).
+isTaking(steven,comp352).
+isTaking(steven,econ201).
+isTaking(steven,elec275).
+isTaking(steven,engr233).
+
+isTaking(ellane,comp352).
+isTaking(ellane,comp348).
+isTaking(ellane,phys284).
+isTaking(ellane,comp233).
+
+studentList([johnny,kelvin,steven,ellane]).
+
+uniqueCourses(A,B) :- uniqueCourses(A, B, []).
+uniqueCourses([],[],_).
+uniqueCourses([H|T],[H|Out],Seen) :- not(course(H,Seen)), uniqueCourses(T,Out, [H|Seen]).
+uniqueCourses([H|T],Out, Seen) :- course(H,Seen), uniqueCourses(T,Out,Seen).
+
+
+>>>>>>>>><<<<<<<<<<
+>>>>>Question:<<<<<
+>>>>>>>>><<<<<<<<<<
+
+>Write a query to return the list of courses taken by each person.
+?- isTaking(X,Y).
+
+>Write a query to return the team size.
+?-findall(X, student(X,_), L), length(L,N).
+
+>Write a query to return the unique courses taken by the whole team.
+?-findall(X, isTaking(_,X), All_Courses),
+uniqueCourses(All_Courses, UniqueCourses).
+
+>Use sort/2 to sort the result of the previous query.
+?-findall(X, isTaking(_,X), All_Courses),
+uniqueCourses(All_Courses, UniqueCourses),
+sort(All_Courses, Sorted).
+
+>Unify the expression [A,B|C] with the above result. Provide the values for A, B, and
+C
+?-Sorted = [H, H | [List]]. 
+***returns false.
+
+?- [comp233, comp345, comp348, comp352, econ201, elec275, engr233, engr251, inst250, phil210, phys284]
+ = [comp233,comp345|[comp348, comp352, econ201, elec275, engr233, engr251, inst250, phil210, phys284]].
+***returns true.
+
+***but Sorted = [comp233, comp345, comp348, comp352, econ201, elec275, engr233, engr251, inst250, phil210, phys284].

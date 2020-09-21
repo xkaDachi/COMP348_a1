@@ -1,0 +1,85 @@
+ or(1,0,1).
+or(0,1,1).
+or(0,0,0).
+or(1,1,1).
+
+or(0,0,0,0).
+or(0,0,1,1).
+or(0,1,0,1).
+or(0,1,1,1).
+or(1,0,0,1).
+or(1,0,1,1).
+or(1,1,0,1).
+or(1,1,1,1).
+
+or(0,0,0,0,0).
+or(0,0,0,1,1).
+or(0,0,1,0,1).
+or(0,0,1,1,1).
+or(0,1,0,0,1).
+or(0,1,0,1,1).
+or(0,1,1,0,1).
+or(1,1,1,1,1).
+or(1,0,0,0,1).
+or(1,0,0,1,1).
+or(1,0,1,0,1).
+or(1,0,1,1,1).
+or(1,1,0,0,1).
+or(1,1,0,1,1).
+or(1,1,1,0,1).
+or(1,1,1,1,1).
+
+or(0,0,0,0,0,0).
+or(0,0,0,0,1,1).
+or(0,0,0,1,0,1).
+or(0,0,0,1,1,1).
+or(0,0,1,0,0,1).
+or(0,0,1,0,1,1).
+or(0,0,1,1,0,1).
+or(0,0,1,1,1,1).
+or(0,1,0,0,0,1).
+or(0,1,0,0,1,1).
+or(0,1,0,1,0,1).
+or(0,1,0,1,1,1).
+or(0,1,1,0,0,1).
+or(0,1,1,0,1,1).
+or(0,1,1,1,0,1).
+or(0,1,1,1,1,1).
+
+or(1,0,0,0,0,1).
+or(1,0,0,0,1,1).
+or(1,0,0,1,0,1).
+or(1,0,0,1,1,1).
+or(1,0,1,0,0,1).
+or(1,0,1,0,1,1).
+or(1,0,1,1,0,1).
+or(1,0,1,1,1,1).
+or(1,1,0,0,0,1).
+or(1,1,0,0,1,1).
+or(1,1,0,1,0,1).
+or(1,1,0,1,1,1).
+or(1,1,1,0,0,1).
+or(1,1,1,0,1,1).
+or(1,1,1,1,0,1).
+or(1,1,1,1,1,1).
+
+and(1,0,0).
+and(0,1,0).
+and(0,0,0).
+and(1,1,1).
+
+inv(1,0).
+inv(0,1).
+
+circuit(A,B,C,D,AA,BB,CC,DD,EE,FF,GG) :- inv(A,Ainv), inv(B,Binv), inv(C,Cinv), inv(D,Dinv), 
+                                and(B,D,BD), and(Binv,Dinv,BinvDinv), 
+                                and(C,D,CD), and(Cinv,Dinv,CinvDinv),
+                                or(B,Cinv,D,CC),
+                                and(C,Dinv,CDinv), and(Binv,C,BinvC),
+                                and(B,Cinv,BCinv), and(B,Dinv,BDinv), and(BCinv,D,BCinvD),
+                                or(BD,BinvDinv,A,C,AA),
+                                or(CD,Binv,CinvDinv,BB),
+                                or(A,BinvDinv,CDinv,BinvC,BCinvD,DD),
+                                or(CDinv,BinvDinv,EE),
+                                or(CinvDinv,BDinv,BCinv,A,FF),
+                                or(CDinv,BCinv,A,BinvC,GG).

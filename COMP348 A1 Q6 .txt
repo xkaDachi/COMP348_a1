@@ -1,0 +1,19 @@
+start(s1).
+final(s1).
+transition(s1,a,s2).
+transition(s2,a,s2).
+transition(s2,b,s1).
+transition(s2,c,s4).
+transition(s4,d,s3).
+transition(s3,a,s1).
+transition(s3,b,s4).
+
+
+accept(Xs): -start(Q), path(Q,Xs).
+path(Q,[X|Xs]): -transition(Q,X,Ql), path(Ql,Xs).
+path(Q,[]): -final(Q).
+
+You can verify the sequence is accepted or not by knowing that the two possible
+last literals of the string can be either 'a' or 'b'.
+If it is 'a', you must know that a 'd' must come before it.
+If it is 'b', you must know that an 'a' must come before it.
