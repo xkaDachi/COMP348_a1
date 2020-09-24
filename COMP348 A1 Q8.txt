@@ -1,0 +1,22 @@
+size([],0).
+size([_|T],N) :- 
+  size(T,N1), N is N1+1.
+
+half_size(N,S):-
+    0 is mod(N,2) ->  
+    S is N/2;
+    S is (N+1)/2.
+
+sublist([],0,0,_).
+sublist(Half,First,Second,[A|B]):- 
+    0 is First, 
+    First<Second, 
+    Second2 is Second-1, 
+    Half=[A|D], 
+    sublist(D,0,Second2,B).
+
+second_half([H|T], H2):-
+    size([H|T],Size),
+    half_size(Size,HalfSize),
+    sublist(H1,0,HalfSize,[H|T]),
+	append(H1,H2,[H|T]).
