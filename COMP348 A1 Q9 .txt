@@ -1,8 +1,19 @@
-lucas(0,2).
-lucas(1,1).
-lucas(N,Output):- N>1,
-           N1 is N-1,
-           N2 is N-2,
-           lucas(N1,Output1),
-           lucas(N2,Output2),
-           Output is Output1+Output2.
+lucas(1,[2]).
+
+lucas(2,[2,1]).
+
+lucas(N,List) :-
+	N > 2,
+	N1 is N-1,
+	N2 is N-2,
+	lucas(N1, List1),
+	lucas(N2, List2),
+	previousLucas(List1, F1),
+	previousLucas(List2, F2),
+	F is F1 + F2,
+	append(List1, [F], List).
+
+previousLucas([Head], List):-
+	List = Head.
+previousLucas([_|Tail], List):-
+	previousLucas(Tail, List).
