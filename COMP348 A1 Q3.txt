@@ -1,0 +1,56 @@
+Question 3:
+1. food(bread, X) = Food(Y, soup) 
+They cannot be unified, there is a syntax error. Capitalization of F in Food is not the same in both statements. Prolog is case sensitive, therefore there will be no unification.
+
+2. Bread = soup 
+Yes, Unification: Bread = soup, where Bread is a variable and is assigned with the value soup.
+
+3. Bread = Soup 
+Yes, Unification: Bread = Soup, where Bread and Soup are variables. They are unified together, therefore they will have the same value.
+
+4. food(bread, X, milk) = food(Y, salad, X)
+No unification: The variable X cannot be unified with two different values in this case.
+***
+5. manager(X) = Y 
+Yes, Unification: Y = manager(X)
+
+6. meal(healthyFood(bread), drink(milk)) = meal(X,Y) 
+Yes, Unification: X = healthyFood(bread) and Y = drink(milk)
+
+7. meal(eat(Z), drink(milk)) = [X] 
+No unification: a  non-list value cannot be unified with a list
+
+8. [eat(Z), drink(milk)] = [X, Y | Z] 
+Yes, Unification: X = eat(Z), Y = drink(milk), Z = []. Z is an empty list. 
+
+9. f(X, t(b, c)) = f(l, t(Z, c)) 
+Unification: X = l, Z = b
+***
+
+10. ancestor(french(jean), B) = ancestor(A, scottish(joe)) 
+Yes, Unification: A = french(jean) and B = scottish(joe)
+
+11. meal(healthyFood(bread), Y) = meal(X, drink(water)) 
+Yes, Unification: X = healthyFood(bread) and Y = drink(water)
+
+12. [H|T] = [a, b, c] 
+Yes, Unification: H = [a] and T = [b,c].
+
+13. [H, T] = [a, b, c] 
+No unification: The list on the left hand side has two elements while the list on the right hand side has three elements. Since, both lists do not have the same number of elements, there is no unification for the last number. H and T are simple variable and should not be confused with the statement [H|T]. 
+
+14. breakfast(healthyFood(bread), egg, milk) = breakfast(healthyFood(Y), Y, Z) 
+Yes, Unification: healthyFood(bread) = healthyFood(Y), Y = egg, Z = milk
+*** 
+
+15. dinner(X, Y, Time) = dinner(jack, cook( egg, oil), Evening) 
+Yes, Unification: X = jack, Y = cook(egg,oil) Time = Evening
+
+16. k(s(g), Y) = k(X, t(k)) 
+Yes, Unification: X = s(g), Y = t(k)
+
+17. equation(Z, f(x, 17, M), L*M, 17) = equation(C, f(D, D, y), C, E) 
+No unification, D is shown to be x and 17 at the same time which is not possible because a variable can not be unified with two different values. 
+***Yes 
+18. a(X, b(c, d), [H|T]) = a(X, b(c, X), b) 
+No unification: the list [H|T] cannot be unified with the value b
