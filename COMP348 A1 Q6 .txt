@@ -17,3 +17,5 @@ You can verify the sequence is accepted or not by knowing that the two possible
 last literals of the string can be either 'a' or 'b'.
 If it is 'a', you must know that a 'd' must come before it.
 If it is 'b', you must know that an 'a' must come before it.
+
+?- accept([a,a,b]).
