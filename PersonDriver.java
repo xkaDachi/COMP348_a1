@@ -94,11 +94,11 @@ public class PersonDriver {
 				 
 		 Stream<Person> stream5 = Arrays.stream(personArray);
 		 Map<String,DoubleSummaryStatistics> result = stream5.collect(Collectors.groupingBy(emp -> 
-				 															emp.getSalary().doubleValue() < 25000 ? "<25000": 
-				 															emp.getSalary().doubleValue() < 40000 ? "25000-40000":	
-				 															emp.getSalary().doubleValue() < 70000 ? "<40000-70000":
-				 																">70000",
-				 															Collectors.summarizingDouble(emp -> emp.getSalary().doubleValue())));
+				 		emp.getSalary().doubleValue() < 25000 ? "<25000": 
+				 		emp.getSalary().doubleValue() < 40000 ? "25000-40000":	
+				 		emp.getSalary().doubleValue() < 70000 ? "<40000-70000":
+				 		">70000",
+				 		Collectors.summarizingDouble(emp -> emp.getSalary().doubleValue())));
 		 
 		 DoubleSummaryStatistics stats25k = result.get("<25000");
 		 double avg25k = stats25k == null ? 0.0 : stats25k.getAverage();
