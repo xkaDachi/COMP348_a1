@@ -34,7 +34,7 @@ Yes, Unification: A = french(jean) and B = scottish(joe)
 Yes, Unification: X = healthyFood(bread) and Y = drink(water)
 
 12. [H|T] = [a, b, c] 
-Yes, Unification: H = [a] and T = [b,c].
+Yes, Unification: H = a and T = [b,c].
 
 13. [H, T] = [a, b, c] 
 No unification: The list on the left hand side has two elements while the list on the right hand side has three elements. Since, both lists do not have the same number of elements, there is no unification for the last number. H and T are simple variable and should not be confused with the statement [H|T]. 
