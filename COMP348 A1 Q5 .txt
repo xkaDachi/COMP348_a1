@@ -66,15 +66,17 @@ uniqueCourses([H|T],Out, Seen) :- course(H,Seen), uniqueCourses(T,Out,Seen).
 ?-findall(X, isTaking(_,X), All_Courses),
 uniqueCourses(All_Courses, UniqueCourses).
 
+%list_to_set(All_Courses, Unique_Courses).
+
 >Use sort/2 to sort the result of the previous query.
 ?-findall(X, isTaking(_,X), All_Courses),
-uniqueCourses(All_Courses, UniqueCourses),
+uniqueCourses(All_Courses, UniqueCourses),        %list_to_set(All_Courses, Unique_Courses).
 sort(All_Courses, Sorted).
 
 >Unify the expression [A,B|C] with the above result. Provide the values for A, B, and
 C
 ?-findall(X, isTaking(_,X), All_Courses),
-uniqueCourses(All_Courses, UniqueCourses),
+uniqueCourses(All_Courses, UniqueCourses),        %list_to_set(All_Courses, Unique_Courses).
 sort(All_Courses, Sorted),
 
 NewSorted = [comp233, comp345 | [comp348, comp352, econ201, elec275, engr233, engr251, inst250, phil210, phys284]],
