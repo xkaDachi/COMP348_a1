@@ -26,22 +26,24 @@ isTaking(johnny,comp348).
 isTaking(johnny,comp352).
 isTaking(johnny,phil210).
 isTaking(johnny,inst250).
-
 isTaking(kelvin,comp348).
 isTaking(kelvin,comp352).
 isTaking(kelvin,elec275).
 isTaking(kelvin,engr251).
-
 isTaking(steven,comp348).
 isTaking(steven,comp352).
 isTaking(steven,econ201).
 isTaking(steven,elec275).
 isTaking(steven,engr233).
-
 isTaking(ellane,comp352).
 isTaking(ellane,comp348).
 isTaking(ellane,phys284).
 isTaking(ellane,comp233).
+
+isTakingList(johnny,[comp345,comp348,comp352,phil210,inst250]).
+isTakingList(kelvin,[comp348,comp352,elec275,engr251]).
+isTakingList(steven,[comp348,comp352,econ201,elec275,engr233]).
+isTakingList(ellane,[comp352,comp348,phys284,comp233]).
 
 studentList([johnny,kelvin,steven,ellane]).
 
@@ -50,13 +52,12 @@ uniqueCourses([],[],_).
 uniqueCourses([H|T],[H|Out],Seen) :- not(course(H,Seen)), uniqueCourses(T,Out, [H|Seen]).
 uniqueCourses([H|T],Out, Seen) :- course(H,Seen), uniqueCourses(T,Out,Seen).
 
-
 >>>>>>>>><<<<<<<<<<
 >>>>>Question:<<<<<
 >>>>>>>>><<<<<<<<<<
 
 >Write a query to return the list of courses taken by each person.
-?- isTaking(X,Y).
+?- isTakingList(X,Y).
 
 >Write a query to return the team size.
 ?-findall(X, student(X,_), L), length(L,N).
