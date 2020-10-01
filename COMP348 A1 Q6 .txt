@@ -9,9 +9,9 @@ transition(s3,a,s1).
 transition(s3,b,s4).
 
 
-accept(Xs): -start(Q), path(Q,Xs).
-path(Q,[X|Xs]): -transition(Q,X,Ql), path(Ql,Xs).
-path(Q,[]): -final(Q).
+accept(Xs):-start(Q), path(Q,Xs).
+path(Q,[X|Xs]):-transition(Q,X,Ql), path(Ql,Xs).
+path(Q,[]):-final(Q).
 
 You can verify the sequence is accepted or not by knowing that the two possible
 last literals of the string can be either 'a' or 'b'.
