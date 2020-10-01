@@ -42,6 +42,7 @@ No unification: The list on the left hand side has two elements while the list o
 14. breakfast(healthyFood(bread), egg, milk) = breakfast(healthyFood(Y), Y, Z) 
 Yes, Unification: healthyFood(bread) = healthyFood(Y), Y = egg, Z = milk
 *** 
+No unification: Once bread is unified with Y, there will be a conflict with egg unifying with Y.
 
 15. dinner(X, Y, Time) = dinner(jack, cook( egg, oil), Evening) 
 Yes, Unification: X = jack, Y = cook(egg,oil) Time = Evening
