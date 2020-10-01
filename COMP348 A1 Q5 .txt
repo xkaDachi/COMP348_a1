@@ -45,8 +45,6 @@ isTakingList(kelvin,[comp348,comp352,elec275,engr251]).
 isTakingList(steven,[comp348,comp352,econ201,elec275,engr233]).
 isTakingList(ellane,[comp352,comp348,phys284,comp233]).
 
-studentList([johnny,kelvin,steven,ellane]).
-
 uniqueCourses(A,B) :- uniqueCourses(A, B, []).
 uniqueCourses([],[],_).
 uniqueCourses([H|T],[H|Out],Seen) :- not(course(H,Seen)), uniqueCourses(T,Out, [H|Seen]).
