@@ -38,14 +38,9 @@ isTaking(steven,engr233).
 isTaking(ellane,comp352).
 isTaking(ellane,comp348).
 isTaking(ellane,phys284).
-isTaking(ellane,comp233).
+isTaking(ellane,engr233).
 
 isTakingList(Student, Courses) :- findall(Course, isTaking(Student, Course), Courses).
-
-uniqueCourses(A,B) :- uniqueCourses(A, B, []).
-uniqueCourses([],[],_).
-uniqueCourses([H|T],[H|Out],Seen) :- not(course(H,Seen)), uniqueCourses(T,Out, [H|Seen]).
-uniqueCourses([H|T],Out, Seen) :- course(H,Seen), uniqueCourses(T,Out,Seen).
 
 >>>>>>>>><<<<<<<<<<
 >>>>>Question:<<<<<
@@ -62,17 +57,17 @@ isTakingList(ellane,Ellane_Courses).
 
 >Write a query to return the unique courses taken by the whole team.
 ?-findall(X, isTaking(_,X), All_Courses),
-uniqueCourses(All_Courses, UniqueCourses).        %list_to_set(All_Courses, Unique_Courses).
+list_to_set(All_Courses, Unique_Courses).
 
 >Use sort/2 to sort the result of the previous query.
 ?-findall(X, isTaking(_,X), All_Courses),
-uniqueCourses(All_Courses, UniqueCourses),        %list_to_set(All_Courses, Unique_Courses).
+list_to_set(All_Courses, Unique_Courses).
 sort(All_Courses, Sorted).
 
 >Unify the expression [A,B|C] with the above result. Provide the values for A, B, and
 C
 ?-findall(X, isTaking(_,X), All_Courses),
-uniqueCourses(All_Courses, UniqueCourses),        %list_to_set(All_Courses, Unique_Courses).
+list_to_set(All_Courses, Unique_Courses).
 sort(All_Courses, Sorted),
 
 NewSorted = [comp233, comp345 | [comp348, comp352, econ201, elec275, engr233, engr251, inst250, phil210, phys284]],
