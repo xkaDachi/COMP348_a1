@@ -64,8 +64,7 @@ list_to_set(All_Courses, Unique_Courses).
 list_to_set(All_Courses, Unique_Courses).
 sort(All_Courses, Sorted).
 
->Unify the expression [A,B|C] with the above result. Provide the values for A, B, and
-C
+>Unify the expression [A,B|C] with the above result. Provide the values for A, B, and C
 ?-findall(X, isTaking(_,X), All_Courses),
 list_to_set(All_Courses, Unique_Courses).
 sort(All_Courses, Sorted),
