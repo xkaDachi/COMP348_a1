@@ -8,12 +8,12 @@ lucas(N,List) :-
 	N2 is N-2,
 	lucas(N1, List1),
 	lucas(N2, List2),
-	previousLucas(List1, F1),
-	previousLucas(List2, F2),
+	lastElement(List1, F1),
+	lastElement(List2, F2),
 	F is F1 + F2,
 	append(List1, [F], List).
 
-previousLucas([Head], List):-
+lastElement([Head], List):-
 	List = Head.
-previousLucas([_|Tail], List):-
-	previousLucas(Tail, List).
+lastElement([_|Tail], List):-
+	lastElement(Tail, List).
