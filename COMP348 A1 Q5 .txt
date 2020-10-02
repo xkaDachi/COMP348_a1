@@ -40,10 +40,7 @@ isTaking(ellane,comp348).
 isTaking(ellane,phys284).
 isTaking(ellane,comp233).
 
-isTakingList(johnny,[comp345,comp348,comp352,phil210,inst250]).
-isTakingList(kelvin,[comp348,comp352,elec275,engr251]).
-isTakingList(steven,[comp348,comp352,econ201,elec275,engr233]).
-isTakingList(ellane,[comp352,comp348,phys284,comp233]).
+isTakingList(Student, Courses) :- findall(Course, isTaking(Student, Course), Courses).
 
 uniqueCourses(A,B) :- uniqueCourses(A, B, []).
 uniqueCourses([],[],_).
@@ -55,7 +52,10 @@ uniqueCourses([H|T],Out, Seen) :- course(H,Seen), uniqueCourses(T,Out,Seen).
 >>>>>>>>><<<<<<<<<<
 
 >Write a query to return the list of courses taken by each person.
-?- isTakingList(X,Y).
+?- isTakingList(steven,Steven_Courses),
+isTakingList(johnny,Johnny_Courses),
+isTakingList(kelvin,Kelvin_Courses),
+isTakingList(ellane,Ellane_Courses).
 
 >Write a query to return the team size.
 ?-findall(X, student(X,_), L), length(L,N).
