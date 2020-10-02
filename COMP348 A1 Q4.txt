@@ -1,7 +1,7 @@
 Question 4:
 1. ? field(hit_transfer,engineering). 
 true
-non-grounded query
+grounded query
 
 Looks in the database from the beginning until the end, line by line, for a match. 
 No match has been found.
