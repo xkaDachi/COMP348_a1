@@ -6,9 +6,9 @@ grounded query
 Looks in the database from the beginning until the end, line by line, for a match. 
 No match has been found.
 It will use the following rule: field(X, Y) :- course(X, Z), field(Z, Y).
-field(hit_transfer, engineering) :- course(hit_transfer, Z), field(Z, engineering). There is a call for a search through the database for course(hit_transfer, Z) and field(Z, engineering).
-The database finds that course(hit_transfer, Z) and field (Z, engineering) has a match where 
-Z is mechanical.
+Resolution will apply the substitution and produce a new rule which is field(hit_transfer, engineering) :- course(hit_transfer, Z), field(Z, engineering). 
+There is a call for a search through the database for course(hit_transfer, Z) and field(Z, engineering).
+The database finds that course(hit_transfer, Z) and field (Z, engineering) has a match where Z is mechanical. Z is instantiated to mechanical.
 
 Hence if the course(hit_transfer, mechanical) and field(mechanical, engineering) are true, then field(hit_transfer, engineering) is true.
 
@@ -18,14 +18,16 @@ false
 non-grounded query.
 
 Looks in the database from the beginning until the end, line by line, for a match. 
-There is a match with lab_number(fine_arts, 10). where X = 10.
+There is a match with lab_number(fine_arts, 10). X is instantiated with X and returns.
 
 3. ? field(computer, literature). 
 false
 grounded query
 
 Looks in the database from the beginning until the end, line by line, for a match. 
-There is a call using field(X, Y) :- course(X, Z), field(Z, Y). field(computer, literature) :- course(computer, Z), field(Z, literature). There is no possible value of Z to make both terms true. Therefore, there are no possible matches. 
+There is a call using field(X, Y) :- course(X, Z), field(Z, Y). 
+Resolution will apply the substitution and produce a new rule which is field(computer, literature) :- course(computer, Z), field(Z, literature). 
+There is no possible value of Z to make both terms true. Therefore, there are no possible matches. 
 Even by using field(X, Y) :- course(X, Z), field(Z, Y).
 	where course(computer, _) does not have a match
 	and where field( _, literature) does not have a match either.
@@ -51,18 +53,21 @@ grounded query
 
 Looks in the database from the beginning until the end, line by line, for a match. 
 It will take the following statement: student(X):- student(X, _).
-It will then find all possible matches where X is adrian who could study anything. It will match with the term student(adrian, web_design).
+It will then find all possible matches where X is instantiated to adrian who could study anything. It will resolve with the term student(adrian, web_design).
 It will return that adrian is studying web_design.
+Therefore, adrian is indeed a student.
 
 6 ? student(anna, engineering). 
-false
+true
 grounded query.
 
 Looks in the database from the beginning until the end, line by line, for a match.
-There is no match with any facts. It will use the following rule: student(X, Y) :- field(Z, Y), student(X, Z). statement. After the first unification, student(anna, engineering): - field(Z, engineering), student(anna, Z), it will look again in the database for a match starting with field(Z, engineering). The first result found is Z = mechanical
+There is no match with any facts. It will use the following rule: student(X, Y) :- field(Z, Y), student(X, Z). statement. where X is anna and Y is engineering. 
+It will resolve to a new rule : student(anna, engineering) :- field(Z, engineering), student(anna, Z).
 
-The search will proceed. field(mechanical,engineering) will be unified with field(X,Y) rule where X = mechanical and Y = engineering. There is another search for field(mechanical, engineering) :- course(mechanical, Z), field(Z, engineering). course(mechanical,Z) will be unified with course(hit_transfer, mechanical). Z will return as hit_transfer. Finally, the initial query becomes true because in the rule student(anna,engineering):- field(hit_transfer, engineering), student(anna,hit_transfer) are satisfied. It will then return false because no other result will be found.
+After the first unification, student(anna, engineering): - field(Z, engineering), student(anna, Z), it will look again in the database for a match starting with field(Z, engineering). The first result found is Z = mechanical
 
+The search will proceed. field(mechanical,engineering) will be unified with field(X,Y) rule where X = mechanical and Y = engineering. There is another search for field(mechanical, engineering) :- course(mechanical, Z), field(Z, engineering). course(mechanical,Z) will be unified with course(hit_transfer, mechanical). Z will return as hit_transfer. Finally, the initial query becomes true because in the rule student(anna,engineering):- field(hit_transfer, engineering), student(anna,hit_transfer) are satisfied. It will then return true for the main query.
 
 
 
@@ -72,19 +77,33 @@ X = daniel;
 X = adrian;
 non-grounded query
 
-Looks in the database from the beginning until the end, line by line, for a match. Unification with the rule student(X, Y):- field(Z, Y), student(X, Z) where Y is engineering. Will perform a search for the field(Z, engineering) and will find two values for Z = mechanical and Z = computer. No result will be found for a student that studies mechanical or computer. The search continues. 
+Looks in the database from the beginning until the end, line by line, for a match. Unification with the rule student(X, Y):- field(Z, Y), student(X, Z) where Y is engineering. Resolve to a new query student(X, engineering):- field(Z, engineering), student(X, Z)
 
-Then it will be unified with the rule field(X, Y):- course(X, Z), field(Z, Y). field(Z, engineering):- course(Z, Z1), field(Z1, engineering) will perform a search and find that Z1 is mechanical. Then a search will be made for course(Z, mechanical) and it will be unified with course(hit_transfer, mechanical). Z = hit_transfer and it will go back to the base query to search for student(X, hit_transfer). A first value will be found X = anna. A second value will be found X = daniel. 
+Will perform a search for the field(Z, engineering) and will find two values for Z = mechanical and Z = computer. Resolve to two new queries field(mechanical, engineering) and field(computer,engineering). No result will be found for a student that studies mechanical or computer. The search continues. 
 
-Then it will be unified with the rule field(X, Y):- course(X, Z), field(Z, Y). field(Z, engineering):- course(Z, Z1), field(Z1, engineering) will perform a search and find that Z1 = computer. Then a search will be made for course(Z, computer) and it will be unified with course(web_design, computer). Z = web_design and it will go back to the base query to search for student(X, web_design). A third value for X is found and X = adrian. 
+Then it will be unified with the rule field(X, Y):- course(X, Z), field(Z, Y). 
+Resolve to a new query field(Z, engineering):- course(Z, Z1), field(Z1, engineering) 
+It will perform a search and find that Z1 is mechanical. Then a search will be made for course(Z, mechanical) and it will be unified with course(hit_transfer, mechanical). 
+Z = hit_transfer and it will go back to the base query to search for student(X, hit_transfer). 
 
-The search will continue the search and find nothing therefore, it will return false.
+From student(X, hit_transfer), a first value will be found X = anna. 
+From student(X, hit_transfer), a second value will be found X = daniel. 
+
+Then it will be unified with the rule field(X, Y):- course(X, Z), field(Z, Y). 
+Resolve to a new query field(Z, engineering):- course(Z, Z1), field(Z1, engineering) 
+It will perform a search and find that Z1 = computer. Then a search will be made for course(Z, computer) and it will be unified with course(web_design, computer). 
+Z = web_design and it will go back to the base query to search for student(X, web_design). 
+From student(X, web_design), a third value for X is found and X = adrian. 
+
+The search will continue and find nothing therefore, it will return false.
 
 8. ? student(X,fine-arts), course(fine_arts, Y). 
 false
 non-grounded query
 
-Looks in the database from the beginning until the end, line by line, for a match. It will try to unify the query with two conjunctive facts, The search will be unsuccessful because there is no unification possible with any of the facts in the database. The query will be false.
+Looks in the database from the beginning until the end, line by line, for a match. 
+It will try to unify the query with two conjunctive facts, the search will be unsuccessful because there is no unification possible with any of the facts in the database. 
+The query will be false.
 
 
 9. ? field(_,X). 
@@ -100,15 +119,20 @@ X = social;
 X = buisiness;
 non-grounded query
 
-Looks in the database from the beginning until the end, line by line, for a match. It will look for any facts with the name field and return X. 5 possible values for X are returned. X = engineering, X = engineering, X = art, X = social and X - buisiness. 
+Looks in the database from the beginning until the end, line by line, for a match. It will look for any facts with the name field and return X. 
+5 possible values for X are returned. X = engineering, X = engineering, X = art, X = social and X = buisiness. 
 
-field(_,X) will be unified with the rule field(X, Y) :- course(X, Z), field(Z, Y). A search will be done for field(_,X):- course (_,Z), field(Z,X). A match will be found for Z = mechanical and X = engineering. A second match will be found using this rule for Z = computer and X = engineering. A third match will be found using this rule for Z = fine-arts and X = art. A fourth match will be found using this rule for Z = literature and X = social. A last match will be found using this rule for Z = management and X = buisiness.
+field(_,X) will be unified with the rule field(X, Y) :- course(X, Z), field(Z, Y). 
+Resolve to a new query field(_,X):- course (_,Z), field(Z,X) and performs a search in the database.
+A match will be found for Z = mechanical and X = engineering. A second match will be found using this rule for Z = computer and X = engineering. A third match will be found using this rule for Z = fine-arts and X = art. A fourth match will be found using this rule for Z = literature and X = social. A last match will be found using this rule for Z = management and X = buisiness.
 
 10. ? lab_number(_,X), field(X,Y). 
 false
 non-grounded query
 
-Looks in the database from the beginning until the end, line by line, for a match. It will try to unify the query with two conjunctive facts, The search will be unsuccessful because there is no unification possible with any of the facts in the database. The query will be false. 
+Looks in the database from the beginning until the end, line by line, for a match. 
+It will try to unify the query with two conjunctive facts, the search will be unsuccessful because there is no unification possible with any of the facts in the database. 
+The query will be false. 
 
 11. ? lab_number(X,15), field(X,Y). 
 X = mechanical,
@@ -119,7 +143,11 @@ non-grounded query
 
 Looks in the database from the beginning until the end, line by line, for a match. lab_number(X,15) will unify with the fact lab_number(mechanical, 15) where X = mechanical. field(mechanical, Y) will unify with the fact field(mechanical, engineering) where Y = engineering.
 
-Then, lab_number(X, 15) will unify with the rule lab_number(X, Z) :- course(X, Y), lab_number(Y, Z). We will get lab_number(X, 15) :- course(X, Y), lab_number(Y, 15). lab_number(Y, 15) will unify with the fact lab_number(mechanical, 15) where Y = mechanical. From there, it will search for course(X, mechanical) and will unify with course(hit_transfer, mechanical) where X = hit_transfer. After finding X= hit_transfer, in the base query, field(X,Y) will look into the database for field(hit_transfer, Y) and find that Y = engineering. Finally, it will return false because no other results can be found.
+Then, lab_number(X, 15) will unify with the rule lab_number(X, Z) :- course(X, Y), lab_number(Y, Z). 
+Resolve to a new query lab_number(X, 15) :- course(X, Y), lab_number(Y, 15). lab_number(Y, 15) will unify with the fact lab_number(mechanical, 15) where Y = mechanical. 
+From there, it will search for course(X, mechanical) and will unify with course(hit_transfer, mechanical) where X = hit_transfer. 
+After finding X= hit_transfer, in the base query, field(X,Y) will look into the database for field(hit_transfer, Y) and find that Y = engineering. 
+Finally, it will return false because no other results can be found.
 
 
 12. ? student(X), !, student(X,_). % note to cut here 
