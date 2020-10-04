@@ -141,12 +141,15 @@ X = hit_transfer,
 Y = engineering;
 non-grounded query
 
-Looks in the database from the beginning until the end, line by line, for a match. lab_number(X,15) will unify with the fact lab_number(mechanical, 15) where X = mechanical. field(mechanical, Y) will unify with the fact field(mechanical, engineering) where Y = engineering.
+Looks in the database from the beginning until the end, line by line, for a match. lab_number(X,15) will unify with the fact lab_number(mechanical, 15) where X = mechanical.
+Resolve to a new query field(mechanical, Y) from field(X,Y). field(mechanical, Y) will unify with the fact field(mechanical, engineering) where Y = engineering.
 
 Then, lab_number(X, 15) will unify with the rule lab_number(X, Z) :- course(X, Y), lab_number(Y, Z). 
-Resolve to a new query lab_number(X, 15) :- course(X, Y), lab_number(Y, 15). lab_number(Y, 15) will unify with the fact lab_number(engineering, 15) where Y = engineering. 
-From there, it will search for course(X, mechanical) and will unify with course(hit_transfer, mechanical) where X = hit_transfer. 
-After finding X= hit_transfer, in the base query, field(X,Y) will look into the database for field(hit_transfer, Y) and find that Y = engineering. 
+Resolve to a new query lab_number(X, 15) :- course(X, Y), lab_number(Y, 15). lab_number(Y, 15) will unify with the fact lab_number(mechanical, 15) where Y = mechanical. 
+From there, it will search for course(X, mechanical) and will unify with course(hit_transfer, mechanical) where X = hit_transfer.
+
+From the base query, where X is hit_transfer, resolve to lab_number(hit_transfer,15), field(hit_transfer,Y). 
+Look in the database for field(hit_transfer,Y) to find a possible Y. Unification with field(hit_transfer,engineering) and Y = engineering.
 Finally, it will return false because no other results can be found.
 
 
@@ -156,7 +159,7 @@ X = anna;
 false
 non-grounded query 
 
-Looks in the database from the beginning until the end, line by line, for a match. student(X) will unify with the rule student(X):- student(X,_). It will perform the search and find student(anna, hit_transfer) where X = anna. Then it will not backtrack because of the cut predicate. X will be applied to the clause student(X,_) and search the database. student(anna,_) will unify with student(anna, hit_transfer). It will return and instantiate X to anna. 
+Looks in the database from the beginning until the end, line by line, for a match. student(X) will unify with the rule student(X):- student(X,_). It will perform the search and find student(anna, hit_transfer) where X = anna. Then it will not backtrack because of the cut predicate. X will be applied to the clause student(X,_) and search the database. Resolve to student(anna,_). student(anna,_) will unify with student(anna, hit_transfer). It will return and instantiate X to anna. 
 
 13. ? student(X), student(X,_), !. 
 X = anna
