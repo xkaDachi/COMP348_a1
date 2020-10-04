@@ -13,7 +13,7 @@ lucas(N,List) :-
 	M is M1 + M2,
 	append(List1, [M], List).
 
-lastElement([Head], List):-
-	List = Head.
-lastElement([_|Tail], List):-
-	lastElement(Tail, List).
+lastElement([H], List):-
+	List = H.
+lastElement([_|T], List):-
+	lastElement(T, List).
