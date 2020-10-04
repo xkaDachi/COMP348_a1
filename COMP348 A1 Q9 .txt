@@ -8,10 +8,10 @@ lucas(N,List) :-
 	N2 is N-2,
 	lucas(N1, List1),
 	lucas(N2, List2),
-	lastElement(List1, F1),
-	lastElement(List2, F2),
-	F is F1 + F2,
-	append(List1, [F], List).
+	lastElement(List1, M1),
+	lastElement(List2, M2),
+	M is M1 + M2,
+	append(List1, [M], List).
 
 lastElement([Head], List):-
 	List = Head.
