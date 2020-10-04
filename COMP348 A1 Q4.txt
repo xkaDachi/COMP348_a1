@@ -144,7 +144,7 @@ non-grounded query
 Looks in the database from the beginning until the end, line by line, for a match. lab_number(X,15) will unify with the fact lab_number(mechanical, 15) where X = mechanical. field(mechanical, Y) will unify with the fact field(mechanical, engineering) where Y = engineering.
 
 Then, lab_number(X, 15) will unify with the rule lab_number(X, Z) :- course(X, Y), lab_number(Y, Z). 
-Resolve to a new query lab_number(X, 15) :- course(X, Y), lab_number(Y, 15). lab_number(Y, 15) will unify with the fact lab_number(mechanical, 15) where Y = mechanical. 
+Resolve to a new query lab_number(X, 15) :- course(X, Y), lab_number(Y, 15). lab_number(Y, 15) will unify with the fact lab_number(engineering, 15) where Y = engineering. 
 From there, it will search for course(X, mechanical) and will unify with course(hit_transfer, mechanical) where X = hit_transfer. 
 After finding X= hit_transfer, in the base query, field(X,Y) will look into the database for field(hit_transfer, Y) and find that Y = engineering. 
 Finally, it will return false because no other results can be found.
