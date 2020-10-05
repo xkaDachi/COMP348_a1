@@ -1,6 +1,4 @@
->>>>>>>>><<<<<<<<<<
->>>>>Database:<<<<<
->>>>>>>>><<<<<<<<<<
+/* Data Base*/
 
 student(johnny,40137434).
 student(kelvin,40130189).
@@ -39,10 +37,8 @@ isTaking(ellane,engr233).
 
 isTakingList(Student, Courses) :- findall(Course, isTaking(Student, Course), Courses).
 
->>>>>>>>><<<<<<<<<<
->>>>>Question:<<<<<
->>>>>>>>><<<<<<<<<<
-
+/* Questions */
+/*
 >Write a query to return the list of courses taken by each person.
 ?- isTakingList(steven,Steven_Courses),
 isTakingList(johnny,Johnny_Courses),
@@ -68,3 +64,4 @@ sort(All_Courses, Sorted),
 
 NewSorted = [comp345, comp348 |[comp352, econ201, elec275, engr233, engr251, inst250, phil210, phys284]],
 Sorted = NewSorted.
+*/
